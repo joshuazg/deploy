@@ -1,0 +1,31 @@
+/* Add these styles to your CSS file or styled-components */
+
+.button-container {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .button-container button {
+    padding: 10px;
+    background-color: #4caf50; /* Green color for Save button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+  }
+  
+  .button-container button.reset {
+    background-color: #f44336; /* Red color for Reset button */
+  }
+  
+  .button-container button:hover {
+    background-color: #45a049; /* Darker green color on hover */
+  }
+  
+  .button-container button.reset:hover {
+    background-color: #d32f2f; /* Darker red color on hover for Reset button */
+  }
+  

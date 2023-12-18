@@ -39,7 +39,7 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <BrowserRouter basename="enterprises/goscoot/GoScootMY/react-website">
+      <BrowserRouter basename="enterprises/goscoot/react-website">
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Login setToken={setToken} />} />

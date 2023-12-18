@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/deploy/static/css/main.f01b0b10.css",
+    "main.js": "/deploy/static/js/main.9ae3af08.js",
+    "static/js/787.aad11d4d.chunk.js": "/deploy/static/js/787.aad11d4d.chunk.js",
+    "static/media/background-image.png": "/deploy/static/media/background-image.0f150840c9905591052a.png",
+    "static/media/subtract.svg": "/deploy/static/media/subtract.3a0ec81e09551b4c3177d590c423c0e1.svg",
+    "static/media/ScooterPin.png": "/deploy/static/media/ScooterPin.ccc4e9fb734759cf2eda.png",
+    "static/media/ParkingPin.png": "/deploy/static/media/ParkingPin.fefddd56c73b8e5ea910.png",
+    "static/media/profile-picture.png": "/deploy/static/media/profile-picture.cea10eefd446f1fa0c08.png",
+    "static/media/signout-1.svg": "/deploy/static/media/signout-1.12e7e4e041fb2ee8e02dd105638d21c8.svg",
+    "static/media/mdi-scooter.svg": "/deploy/static/media/mdi-scooter.8bf30ce2ad8c13a84ea447072f14bcab.svg",
+    "static/media/fluent-data-area-24-filled.svg": "/deploy/static/media/fluent-data-area-24-filled.a7f8b63927435c8cf52e2a74dd52bd10.svg",
+    "static/media/caretdown-1.svg": "/deploy/static/media/caretdown-1.37128bb34d2cb1e85631.svg",
+    "index.html": "/deploy/index.html",
+    "static/media/line-17.svg": "/deploy/static/media/line-17.e04e7d88493bcd8a282b36ef68d2a9dd.svg",
+    "main.f01b0b10.css.map": "/deploy/static/css/main.f01b0b10.css.map",
+    "main.9ae3af08.js.map": "/deploy/static/js/main.9ae3af08.js.map",
+    "787.aad11d4d.chunk.js.map": "/deploy/static/js/787.aad11d4d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f01b0b10.css",
+    "static/js/main.9ae3af08.js"
+  ]
+}

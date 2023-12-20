@@ -1,9 +1,9 @@
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { useState, useEffect } from "react";
-import { PieChart, BarChart, LineChart } from "../component/Chart";
-import { supabase } from "../supabaseClient";
-import "../css/chart.css"
+import { PieChart, BarChart, LineChart } from "../../component/Chart";
+import { supabase } from "../../supabaseClient";
+import "../../css/chart.css"
 
 Chart.register(CategoryScale);
 

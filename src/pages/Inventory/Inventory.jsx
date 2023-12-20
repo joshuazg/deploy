@@ -6,7 +6,7 @@ import '../../css/inventory.css'
 //Pages
 import Header from "../Header"
 import Algo from "../algo"
-import Test from "../test"
+import Report from "./ChartReport"
 
 //Icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -552,7 +552,7 @@ const Inventory = ({ token }) => {
                       </table>
                     </div>
                   )}
-                  <Test />
+                  <Report />
                 </div>
               </div>
             </div>

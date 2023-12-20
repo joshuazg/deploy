@@ -18,9 +18,6 @@ import SetGeo from "./pages/SetGeofencing/SetGeo"
 import CheckScoot from "./pages/CheckScooter/CheckScooter"
 import Algo from "./pages/algo"
 
-// test page
-import Test from "./pages/test"
-
 
 function App() {
   const [token, setToken] = useState(false)
@@ -54,7 +51,6 @@ function App() {
           <Route path='/setgeo' element={<SetGeo token={token} />} />
           <Route path='/checkscoot' element={<CheckScoot token={token} />} />
           <Route path='/algo' element={<Algo />} />
-          <Route path='/test' element={<Test />} />
 
 
         </Routes>

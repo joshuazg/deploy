@@ -20,10 +20,6 @@ import signOutImage from "../img/signout-1.svg"
 //React icons
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
-// import { FiSettings } from "react-icons/fi";
-// import { IoIosSettings } from "react-icons/io";
-// import { hover } from "@testing-library/user-event/dist/hover";
-
 
 const CDNURL = "https://hhdihrpmwxaycjjsjusf.supabase.co/storage/v1/object/public/test/";
 

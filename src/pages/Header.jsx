@@ -24,7 +24,7 @@ import { LiaEdit } from "react-icons/lia";
 
 const CDNURL = "https://hhdihrpmwxaycjjsjusf.supabase.co/storage/v1/object/public/test/";
 
-const NotifiedForm = ({ onSubmit, onCancel}) => {
+const NotifiedForm = ({ onSubmit, onCancel }) => {
     const [selectedUser, setSelectedUser] = useState("");
     const [message, setMessage] = useState("");
 
@@ -71,8 +71,8 @@ const Header = ({ token }) => {
     const [notifications, setNotifications] = useState([]);
     const [showSendNotified, setShowSendNotified] = useState(false);
     const [users, setUsers] = useState([]);
-  const [showSendNotifSuccess, setShowSendNotifSuccess] = useState(false);
-    
+    const [showSendNotifSuccess, setShowSendNotifSuccess] = useState(false);
+
 
     let navigate = useNavigate()
 
@@ -108,16 +108,17 @@ const Header = ({ token }) => {
                 to_email: toEmailArray.join(","),
                 message: message,
             };
-
-            await sendEmail(templateParams);
-            setTimeout(() => {
-                setShowSendNotifSuccess(true)
-                console.log("Sent successful");
-        
+            if (message != null) {
+                await sendEmail(templateParams);
                 setTimeout(() => {
-                    setShowSendNotifSuccess(false)
-                }, 5000)
-              }, 1000);
+                    setShowSendNotifSuccess(true)
+                    console.log("Sent successful");
+
+                    setTimeout(() => {
+                        setShowSendNotifSuccess(false)
+                    }, 5000)
+                }, 1000);
+            }
         } catch (error) {
             console.error("Error sending email and notification:", error);
         }
@@ -258,7 +259,7 @@ const Header = ({ token }) => {
                                     <div className="notification-box">
                                         <div style={style.headBox}>
                                             <span>Notifications</span>
-                                            <span><LiaEdit onClick={handledNotified} style={{ width: "20px", height: "20px", cursor: "pointer" }} /></span>
+                                            <span><LiaEdit onClick={handledNotified} className="sent-notify" /></span>
                                             {/* <span><IoIosSettings className="gearNot" style={style.gearIcon} /></span> */}
                                         </div>
                                         {notifications.map((notifications) => (
@@ -308,10 +309,10 @@ const Header = ({ token }) => {
                     </div>
                 </div>
             </div>
-            {showSendNotifSuccess &&(
+            {showSendNotifSuccess && (
                 <div className="success-message">
-                <p>Sent successful!</p>
-              </div>
+                    <p>Sent successful!</p>
+                </div>
             )}
         </div>
     );

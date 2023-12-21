@@ -16,13 +16,50 @@ import subtractImage from '../img/subtract.svg';
 import geofencingImage from '../img/fluent-data-area-24-filled.svg';
 import signOutImage from "../img/signout-1.svg"
 
-
 //React icons
-import { AiOutlineQuestionCircle } from "react-icons/ai";
+// import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { IoNotificationsOutline, IoNotifications } from "react-icons/io5";
+import emailjs from '@emailjs/browser';
+import { LiaEdit } from "react-icons/lia";
 
 const CDNURL = "https://hhdihrpmwxaycjjsjusf.supabase.co/storage/v1/object/public/test/";
 
+const NotifiedForm = ({ onSubmit, onCancel}) => {
+    const [selectedUser, setSelectedUser] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        onSubmit({ sendToEveryone: selectedUser, message });
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="notified-form-container">
+            <label>
+                Send to:
+                <select
+                    value={selectedUser}
+                    onChange={(e) => setSelectedUser(e.target.value)}
+                >
+                    <option value="everyone">Everyone</option>
+                </select>
+            </label>
+
+            <label>
+                Message:
+                <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows="4"
+                />
+            </label>
+
+            <button className="submit-notif" type="submit">Submit</button>
+            <button className="cancel-notif" type="cancel" onClick={onCancel}>Cancel</button>
+        </form>
+    );
+};
 
 const Header = ({ token }) => {
 
@@ -32,9 +69,12 @@ const Header = ({ token }) => {
     const userEmail = userEmailInfo ? userEmailInfo.value : null;
     const [showNotifications, setShowNotifications] = useState(false);
     const [notifications, setNotifications] = useState([]);
+    const [showSendNotified, setShowSendNotified] = useState(false);
+    const [users, setUsers] = useState([]);
+  const [showSendNotifSuccess, setShowSendNotifSuccess] = useState(false);
+    
 
     let navigate = useNavigate()
-
 
 
     function handleLogout() {
@@ -44,6 +84,52 @@ const Header = ({ token }) => {
 
     const handleBellClick = () => {
         setShowNotifications(!showNotifications);
+    };
+
+    const handledNotified = () => {
+        setShowSendNotified(true);
+    }
+
+    const handledCancelNotified = () => {
+        setShowSendNotified(false);
+    }
+
+    const handleFormSubmit = async ({ sendToEveryone, message }) => {
+        try {
+
+
+            // Close the form after submission
+            setShowSendNotified(false);
+
+            let toEmailArray;
+            toEmailArray = users.map(user => user.email);
+
+            const templateParams = {
+                to_email: toEmailArray.join(","),
+                message: message,
+            };
+
+            await sendEmail(templateParams);
+            setTimeout(() => {
+                setShowSendNotifSuccess(true)
+                console.log("Sent successful");
+        
+                setTimeout(() => {
+                    setShowSendNotifSuccess(false)
+                }, 5000)
+              }, 1000);
+        } catch (error) {
+            console.error("Error sending email and notification:", error);
+        }
+    };
+
+    const sendEmail = async (templateParams) => {
+        try {
+            const result = await emailjs.send('service_nrt95gk', 'template_wj595gg', templateParams, 'RP6muO3PswGkd79LK');
+            console.log(result.text);
+        } catch (error) {
+            console.error(error.text);
+        }
     };
 
     useEffect(() => {
@@ -83,6 +169,24 @@ const Header = ({ token }) => {
             }
         };
 
+        const fetchUsers = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('user')
+                    .select('email');
+
+                if (data) {
+                    setUsers(data);
+                } else {
+                    console.error('Error fetching users:', error);
+                }
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+
+
+        fetchUsers();
         getImages();
         fetchReportData();
     }, [])
@@ -154,6 +258,7 @@ const Header = ({ token }) => {
                                     <div className="notification-box">
                                         <div style={style.headBox}>
                                             <span>Notifications</span>
+                                            <span><LiaEdit onClick={handledNotified} style={{ width: "20px", height: "20px", cursor: "pointer" }} /></span>
                                             {/* <span><IoIosSettings className="gearNot" style={style.gearIcon} /></span> */}
                                         </div>
                                         {notifications.map((notifications) => (
@@ -166,6 +271,14 @@ const Header = ({ token }) => {
                                     </div>
                                 )}
                             </div>
+
+                            {showSendNotified && (
+                                <div className="overlay">
+                                    <div className="notified-form">
+                                        <NotifiedForm onSubmit={handleFormSubmit} onCancel={handledCancelNotified} />
+                                    </div>
+                                </div>
+                            )}
                             <div className="user-2">
                                 <div className="pic-container">
                                     {images.map((image) => (
@@ -195,6 +308,11 @@ const Header = ({ token }) => {
                     </div>
                 </div>
             </div>
+            {showSendNotifSuccess &&(
+                <div className="success-message">
+                <p>Sent successful!</p>
+              </div>
+            )}
         </div>
     );
 };

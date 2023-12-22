@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 
-const CDNURL = "https://hhdihrpmwxaycjjsjusf.supabase.co/storage/v1/object/public/test/";
+const CDNURL = "https://hhdihrpmwxaycjjsjusf.supabase.co/storage/v1/object/public/sample/";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -13,8 +13,8 @@ function ViewScooter({ toggleModal, info, schoolId }) {
   const [images, setImages] = useState([]);
   async function getImages() {
     const { data, error } = await supabase.storage
-      .from('test')
-      .list(`${schoolId}/rental/${info.scooterId}`, {
+      .from('sample')
+      .list(`scooterSample/`, {
         limit: 10,
         offset: 0,
         sortBy: {
@@ -39,7 +39,7 @@ function ViewScooter({ toggleModal, info, schoolId }) {
   
       setImages(sortedImages);
     } else {
-      console.log(error);
+      console.log("Failed to retrieve image: ",error);
     }
   }
   
@@ -68,7 +68,7 @@ function ViewScooter({ toggleModal, info, schoolId }) {
         {images.map((image) => (
           <div key={image.name} style={styles.imageContainer}>
             <img
-              src={CDNURL + schoolId + "/rental/" + info.scooterId + "/" + image.name}
+              src={CDNURL + "/scooterSample/" + "/" + image.name}
               style={styles.image}
               alt={image.name}
             />

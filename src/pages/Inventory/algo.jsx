@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../../supabaseClient';
-import "../css/algo.css"
+import "../../css/algo.css"
 
 const Algo = () => {
   const [selectedFile, setSelectedFile] = useState(null);

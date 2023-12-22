@@ -5,7 +5,7 @@ import '../../css/inventory.css'
 
 //Pages
 import Header from "../Header"
-import Algo from "../algo"
+import Algo from "./algo"
 import GenerateReport from "./GenerateReport"
 
 //Icon

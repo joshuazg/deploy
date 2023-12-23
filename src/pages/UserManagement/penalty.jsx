@@ -38,6 +38,7 @@ export default function Penalty({ toggleModal, id, name, email }) {
     { value: 'a', label: 'Compensate' },
     { value: 'b', label: 'Grant Permission' },
   ];
+  
   const [value, setValue] = useState(null);
   const [startDateTime, setStartDateTime] = useState(new Date());
   const [endDateTime, setEndDateTime] = useState(new Date());

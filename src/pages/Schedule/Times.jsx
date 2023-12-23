@@ -1,8 +1,16 @@
 import { Scheduler } from "@aldabil/react-scheduler"
 import React from "react"
 import { supabase } from "../../supabaseClient"
+import { useState } from "react";
+import "../../css/schedule.css"
 
 export default function App() {
+
+    const [showAddMessage, setshowAddMessage] = useState(false);
+    const [showEditMessage, setshowEditMessage] = useState(false);
+    const [showDeleteMessage, setshowDeleteMessage] = useState(false);
+
+
     const fetchRemote = async () => {
         try {
             // Fetch data from the 'schedule' table in Supabase
@@ -37,9 +45,27 @@ export default function App() {
             if (action === "edit") {
                 console.log("Sucessful edit")
                 updateEventsIntoSupabase(event)
+
+                setTimeout(() => {
+                    setshowEditMessage(true);
+                    console.log("Edit successful");
+
+                    setTimeout(() => {
+                        setshowEditMessage(false);
+                    }, 5000)
+                }, 1000);
             } else if (action === "create") {
                 console.log("Sucessful create")
                 insertEventsIntoSupabase(event);
+                setTimeout(() => {
+                    setshowAddMessage(true);
+                    console.log("Add successful");
+
+                    setTimeout(() => {
+                        setshowAddMessage(false);
+                    }, 5000)
+                }, 1000);
+                
             }
 
             const isFail = Math.random() > 0.9;
@@ -70,6 +96,15 @@ export default function App() {
                 throw error;
             } else {
                 console.log('Event deleted successfully:', data);
+                setTimeout(() => {
+                    setshowDeleteMessage(true);
+                    console.log("Edit successful");
+
+                    setTimeout(() => {
+                        setshowDeleteMessage(false);
+                    }, 5000)
+                }, 1000);
+
                 return deletedId;
             }
         } catch (error) {
@@ -128,12 +163,33 @@ export default function App() {
 
 
     return (
-        <Scheduler
-            getRemoteEvents={fetchRemote}
-            onConfirm={handleConfirm}
-            onDelete={handleDelete}
-            view="month"
-            disableViewNavigator={true}
-        />
+        <div>
+            <Scheduler
+                getRemoteEvents={fetchRemote}
+                onConfirm={handleConfirm}
+                onDelete={handleDelete}
+                view="month"
+                disableViewNavigator={true}
+            />
+
+            {showAddMessage && (
+                <div className="success-message">
+                    <p>Create successful!</p>
+                </div>
+            )}
+
+            {showEditMessage && (
+                <div className="success-message">
+                    <p>Edit successful!</p>
+                </div>
+            )}
+
+            {showDeleteMessage && (
+                <div className="success-message">
+                    <p>Update successful!</p>
+                </div>
+            )}
+        </div>
+
     )
 }

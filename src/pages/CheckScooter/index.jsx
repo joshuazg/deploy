@@ -4,6 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient'
 import ScooterPin from '../../img/ScooterPin.png'
 import ParkingPin from '../../img/ParkingPin.png'
+import "../../css/checkscoot.css"
 import Parking from './parking';
 
 const Map = () => {
@@ -129,18 +130,20 @@ const Map = () => {
                 >
                   {activeMarker === location.parkingId && (
                     <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
-                        <div>{location.parkingId}</div>
-                        <div>{location.addressName}</div>
-                        <div>{location.address}</div>
-                        <button onClick={() => {
-                          toggleModal();
-                          setselectedScooterId(location.parkingId);
-                          setSelectedAddressName(location.addressName);
-                        }}>
-                          View Details
-                        </button>
-                      </div>
+                      <b>
+                        <div>
+                          <div>{location.parkingId}</div>
+                          <div>{location.addressName}</div>
+                          <div>{location.address}</div>
+                          <button className='viewDetails' onClick={() => {
+                            toggleModal();
+                            setselectedScooterId(location.parkingId);
+                            setSelectedAddressName(location.addressName);
+                          }}>
+                            View Details
+                          </button>
+                        </div>
+                      </b>
                     </InfoWindowF>
                   )}
                 </MarkerF>

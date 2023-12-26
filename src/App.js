@@ -6,7 +6,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 // pages
 import Login from "./pages/Login/SignUp/Login";
 import Inventory from "./pages/Inventory/Inventory";
-import Scooter from "./pages/Scooter"
 import Schedule from "./pages/Schedule/Schedule"
 import Dashboard from "./pages/Dashboard/Dashboard";
 import SignUp from "./pages/Login/SignUp/SignUp";
@@ -38,7 +37,6 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Login setToken={setToken} />} />
           <Route path="/dashboard" element={<Dashboard token={token} />} />
-          <Route path="/scooter" element={<Scooter token={token} />} />
           <Route path="/inventory" element={<Inventory token={token} />} />
           <Route path="/schedule" element={<Schedule token={token} />} />
           <Route path='/user' element={<User token={token} />} />

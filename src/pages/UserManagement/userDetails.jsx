@@ -19,6 +19,7 @@ const UserDetails = () => {
 
   // console.log(token.user.email);
 
+  
   useEffect(() => {
     async function getInfo() {
       try {

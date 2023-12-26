@@ -54,7 +54,7 @@ function Parking({ toggleModal, scooterId, location }) {
         </div>
       ))}
 
-      <button onClick={toggleModal}>Ok</button>
+      <button className='done' onClick={toggleModal}>Done</button>
     </div>
   );
 }

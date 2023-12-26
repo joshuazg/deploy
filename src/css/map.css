@@ -29,3 +29,29 @@
     background-color: #d32f2f; /* Darker red color on hover for Reset button */
   }
   
+  .success-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    /* Green color */
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    /* Ensure it's above other elements */
+    animation: fadeOut 3s forwards;
+    /* Animation for fade-out effect */
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }

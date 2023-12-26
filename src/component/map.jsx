@@ -3,6 +3,11 @@ import { GoogleMap, useJsApiLoader, Polygon } from '@react-google-maps/api';
 import "../css/map.css"
 
 function Geofence({ permission, width, height, zoom }) {
+
+    const [showSaveMessage, setSaveMessage] = useState(false);
+    const [showResetMessage, setResetMessage] = useState(false);
+
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: 'AIzaSyDLa-riXAI7E-RbBApDNWDP6O37PE9mkDA'
@@ -75,12 +80,30 @@ function Geofence({ permission, width, height, zoom }) {
             console.log('Updated Coordinates:', updatedCoordinates);
             // Update local storage
             localStorage.setItem('polygonPaths', JSON.stringify(updatedCoordinates));
+
+            setTimeout(() => {
+                setSaveMessage(true);
+                console.log("Save coordinates successful");
+
+                setTimeout(() => {
+                    setSaveMessage(false);
+                }, 5000)
+            }, 1000);
         }
     };
 
     const resetPolygon = () => {
         if (polygonRef.current) {
             polygonRef.current.setPaths(originalPaths);
+            setTimeout(() => {
+                setResetMessage(true);
+                console.log("Reset coordinates successful");
+
+                setTimeout(() => {
+                    setResetMessage(false);
+                }, 5000)
+            }, 1000);
+
         }
     };
 
@@ -107,6 +130,18 @@ function Geofence({ permission, width, height, zoom }) {
                 <div className="button-container">
                     <button onClick={updateCoordinates}>Save</button>
                     <button className="reset" onClick={resetPolygon}>Reset</button>
+                </div>
+            )}
+
+            {showSaveMessage && (
+                <div className="success-message">
+                    <p>Coordinate change successful!</p>
+                </div>
+            )}
+
+            {showResetMessage && (
+                <div className="success-message">
+                    <p>Reset Coordinate successful!</p>
                 </div>
             )}
 

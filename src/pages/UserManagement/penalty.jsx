@@ -8,6 +8,9 @@ import emailjs from '@emailjs/browser';
 import styled from 'styled-components';
 import "../../css/user_index.css"
 
+
+
+
 const sendEmail = async (templateParams) => {
   try {
     const result = await emailjs.send('service_nrt95gk', 'template_1c2aqah', templateParams, 'RP6muO3PswGkd79LK');
@@ -20,6 +23,15 @@ const sendEmail = async (templateParams) => {
 
 export default function Penalty({ toggleModal, id, name, email }) {
   const form = useRef();
+
+  const [showCompensateMessage, setCompensateMessage] = useState(false)
+  const [showPermissionMessage, setPermissionMessage] = useState(false)
+  const [compensate, setCompensate] = useState(null);
+  const [compensateError, setCompensateError] = useState(null);
+  const [value, setValue] = useState(null);
+  const [startDateTime, setStartDateTime] = useState(new Date());
+  const [endDateTime, setEndDateTime] = useState(new Date());
+  const [reason, setReason] = useState(null);
 
   const getPenaltyCount = async () => {
     const { data, error } = await supabase
@@ -38,10 +50,8 @@ export default function Penalty({ toggleModal, id, name, email }) {
     { value: 'a', label: 'Compensate' },
     { value: 'b', label: 'Grant Permission' },
   ];
-  
-  const [value, setValue] = useState(null);
-  const [startDateTime, setStartDateTime] = useState(new Date());
-  const [endDateTime, setEndDateTime] = useState(new Date());
+
+
   const calculateTimeDifference = () => {
     const start = dayjs(startDateTime);
     const end = dayjs(endDateTime);
@@ -64,8 +74,7 @@ export default function Penalty({ toggleModal, id, name, email }) {
     }
   };
 
-  const [compensate, setCompensate] = useState(null);
-  const [compensateError, setCompensateError] = useState(null);
+
   function getCompensate(val) {
     const pattern = /^\d+(\.\d{1,2})?$/;
     if (pattern.test(val.target.value) || val.target.value === '') {
@@ -77,7 +86,6 @@ export default function Penalty({ toggleModal, id, name, email }) {
     }
   }
 
-  const [reason, setReason] = useState(null);
   function getReason(val) {
     setReason(val.target.value);
     console.log(val.target.value);
@@ -112,6 +120,8 @@ export default function Penalty({ toggleModal, id, name, email }) {
 
     await sendEmail(templateParams);
 
+
+
     if (value === 'a') {
       console.log(
         `${formattedPenaltyCount} / ${id} / ${items.find((item) => item.value === value).label} / ${compensate} / ${reason} / ${new Date().toISOString()} / ${new Date().toISOString()}`
@@ -135,7 +145,16 @@ export default function Penalty({ toggleModal, id, name, email }) {
         console.error('Error inserting data: ', error);
       } else {
         console.log('Data inserted successfully: ', data);
+        // setTimeout(() => {
+        //   setCompensateMessage(true);
+        //   console.log("Send Compensate successful");
+
+        //   setTimeout(() => {
+        //     setCompensateMessage(false);
+        //   }, 5000)
+        // }, 4000);
         toggleModal();
+
       }
     } else if (value === 'b') {
       console.log(
@@ -160,13 +179,20 @@ export default function Penalty({ toggleModal, id, name, email }) {
         console.error('Error inserting data: ', error);
       } else {
         console.log('Data inserted successfully: ', data);
+        // setTimeout(() => {
+        //   setPermissionMessage(true);
+        //   console.log("Send Penalty successful");
+
+        //   setTimeout(() => {
+        //     setPermissionMessage(false);
+        //   }, 5000)
+
+        // }, 4000);
         toggleModal();
+
       }
     }
   };
-
-
-
 
 
   return (
@@ -258,6 +284,18 @@ export default function Penalty({ toggleModal, id, name, email }) {
         </div>
 
       </form>
+
+      {/* {showCompensateMessage && (
+        <div className="success-message">
+          <p>Send Compensate successful!</p>
+        </div>
+      )}
+
+      {showPermissionMessage && (
+        <div className="success-message">
+          <p>Send penalty successful!</p>
+        </div>
+      )} */}
 
     </div>
   );

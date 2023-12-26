@@ -32,7 +32,7 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <BrowserRouter basename="/deploy">
+      <BrowserRouter>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Login setToken={setToken} />} />
